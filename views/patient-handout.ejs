@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css">
+</head>
+
+<body>
+
+  <%- include('./components/header', {detail : detail}) %>
+
+  <div class="main-content-wrap page-container my-[10rem]">
+    <div class="container">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="sidebar-nav-menu no-style">
+            <li>
+              <a title="Patient List" data-cy="sidebar-patient-list" href="/" aria-current="page">
+                <div style="position: relative; display: flex; gap: 6px;">
+                  <img src="/images/svg/people.svg" style="width: 20px;" alt="">Patient List
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a title="Product List" data-cy="sidebar-product-list" href="/product-list">
+                <div style="position: relative; display: flex; gap: 6px;">
+                  <img src="/images/svg/book-svgrepo-com.svg" style="width: 20px;" alt="">Product List
+                </div>
+              </a>
+            </li>
+            <li>
+              <a title="Patient Handout" data-cy="sidebar-patient-handout" href="/patient-handout">
+                <div style="position: relative; display: flex; gap: 6px;">
+                  <img src="/images/svg/book-svgrepo-com.svg" style="width: 20px;" alt="">Patient Handout
+                </div>
+              </a>
+            </li>
+            <li>
+              <a title="Staff" data-cy="sidebar-staff" href="/staff">
+                <div style="position: relative; display: flex; gap: 6px;">
+                  <img src="/images/svg/doctor-svgrepo-com.svg" style="width: 20px;" alt="">Staff
+                </div>
+              </a>
+            </li>
+
+
+          </ul>
+        </nav>
+      </div>
+      <div class="main-content">
+        <div class="white-box product-box">
+          <h1>Patient Handout</h1>
+          <p>Download and view by clicking the button below.</p>
+          <div class="product-list-item">
+            <div class="product-btn-holder">
+              <div>
+                <a href="./handout.pdf" download="" class="btn btn-primary btn-with-icon right-icon">download patient
+                  handout</a>
+              </div>
+            </div>
+            <div class="iframe-holder">
+              <iframe src="./handout.pdf"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

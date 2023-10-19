@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <%- include('./components/header', {detail : detail}) %>
+
+    <div class="main-content-wrap page-container my-[10rem]">
+      <div class="container">
+
+        <%- include('./components/navbar') %>
+
+          <div class="main-content">
+            <div class="white-box intro-box">
+              <h1>Staff</h1>
+              <div class="search-form-wrap">
+
+                <form class="search-form" id="searchFormStaff" method="post">
+                  <input type="text" placeholder="Search by First or Last Name" id="searchStaff" name="searchStaff"
+                    oninput="search_val_check()" />
+                  <button style="display: flex; align-items: center; justify-content: center; " type="submit"
+                    id="submit_btn"> <img style="" src="/images/svg/search.svg" alt="" width="30px"> </button>
+                </form>
+
+              </div>
+            </div>
+
+            <script>
+              $(document).ready(function () {
+                $('#searchFormStaff').on('submit', function (event) {
+                  event.preventDefault();
+
+                  var searchStaff = $('#searchStaff').val();
+
+                  $.ajax({
+                    url: '/search_staff',
+                    method: 'POST',
+                    data: { searchStaff: searchStaff },
+                    success: function (response) {
+
+                      $('#data-table #tbody').empty();
+
+                      response.forEach(function (data) {
+                        var row = $('<tr>');
+                        row.append($('<td class="table-name">').text(data.ROW1));
+                        row.append($('<td class="table-name">').text(data.ROW2));
+                        row.append($('<td class="dob" colspan="2">').text(data.ROW3));
+                        row.append(`<%- include('./components/search_table_button') %>`);
+                        $('#data-table #tbody').append(row);
+                      });
+                    },
+                    error: function (error) {
+                      console.log(error);
+                    }
+                  });
+                });
+              });
+            </script>
+
+            <script>
+              function search_val_check() {
+                let search_input = document.getElementById('searchStaff');
+                let table_body = document.getElementById('tbody');
+                let staff_table = document.getElementById('staff_table_body');
+
+                if (search_input.value == '') {
+                  table_body.innerText = '';
+                  staff_table.innerHTML = `<%- include('./components/staff_table_data') %>`;
+                }
+
+                document.getElementById('submit_btn').addEventListener('click', () => {
+                  staff_table.innerHTML = '';
+                });
+              }
+            </script>
+
+            <div class="patient-records-section">
+              <div style="position: relative">
+                <div class="patient-records-header">
+
+                  <p class="text-holder">
+                    You currently have <%= count %> staff members on record
+                  </p>
+
+                  <div class="btns-holder">
+                    <div class="btn-item">
+                      <a class="btn btn-primary btn-with-icon" data-cy="add-new-staff-member" href="/create-staff">Add
+                        New Staff Member</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="overflow-dropdown">
+                  <div class="patient-table-outer">
+                    <div class="patient-table-scroll scroll-right">
+                      <div class="patient-table-wrap-v5">
+                        <div class="patient-table-header"></div>
+                      </div>
+                    </div>
+                    <div class="patient-table-outer">
+                      <div class="patient-records-table-wrap">
+
+
+                        <table class="patient-records-table table-v5" id="data-table">
+                          <thead>
+                            <tr>
+                              <th class="name">First Name</th>
+                              <th class="name">Last Name</th>
+                              <th class="empty">Email</th>
+                              <!-- <th class="empty">Active</th> -->
+                              <th>View</th>
+                            </tr>
+                          </thead>
+
+                          <% if(data.length> 0) { %>
+                            <tbody id="staff_table_body">
+                              <%- include('./components/staff_table_data') %>
+                            </tbody>
+                            <% } %>
+                              <tbody id="tbody"> </tbody>
+                        </table>
+
+                        <div class="hide-list-control">
+                          <button class="btn btn-small-view btn-primary">
+                            <span class="icon icon-arrow-left icon-dark"></span>back
+                          </button>
+                          <button class="btn btn-small-view btn-primar btn-inactive">
+                            Next<span class="icon icon-arrow-right icon-dark"></span>
+                          </button>
+                        </div>
+                        <div class="hide-list-control">
+                          <p>Currently viewing page 0 of 0</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>In Development</title>
+    <link rel="stylesheet" href="/styles/output.css" />
+
+    <style>
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin {
+            animation: spin 2s linear infinite;
+        }
+    </style>
+
+</head>
+
+<body>
+    <%- include('./components/header', {detail : detail}); %>
+
+        <div class="my-[10rem]">
+
+            <div class="main-content-wrap page-container">
+                <div class="container">
+                    <%- include('./components/navbar'); %>
+
+                        <% if(order_result && result) { %>
+                            <div class="main-content order-view">
+                                <div class="white-box medication-box">
+                                    <div class="medication-title-wrap">
+                                        <div class="title-holder">
+                                            <h2>Topical Compound</h2>
+                                            <p id="med" hidden> <%- order_result.MEDICINE %> </p>
+
+                                            <div class="title-info">
+                                                <p class="info-item">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-clock-history icon"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.747.91l-.818.576zm.744 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.088l-.95.313a7.023 7.023 0 0 0-.179-.483zm.53 2.507a6.991 6.991 0 0 0-.1-1.025l.985-.17c.067.386.106.778.116 1.17l-1 .025zm-.131 1.538c.033-.17.06-.339.081-.51l.993.123a7.957 7.957 0 0 1-.23 1.155l-.964-.267c.046-.165.086-.332.12-.501zm-.952 2.379c.184-.29.346-.594.486-.908l.914.405c-.16.36-.345.706-.555 1.038l-.845-.535zm-.964 1.205c.122-.122.239-.248.35-.378l.758.653a8.073 8.073 0 0 1-.401.432l-.707-.707z" />
+                                                        <path
+                                                            d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z" />
+                                                        <path
+                                                            d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z" />
+                                                    </svg>
+
+                                                    </span>
+                                                    Prescribed
+                                                    <%- order_result.DAY %> <%- order_result.TIME_STAMP %>
+                                                </p>
+                                                <p class="info-item">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-arrow-repeat icon"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
+                                                    </svg>
+
+                                                    <%- order_result.REFILLS %> Refills
+                                                        Left
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="medication-title-left-col">
+                                            <div class="btns-holder btn-item"><a class="btn btn-small create-btn warn"
+                                                    href="/"><span class="text">DELETE PRESCRIPTION</span><span
+                                                        class="icon icon-close icon-dark2"></span></a></div>
+                                        </div>
+                                    </div>
+                                    <div class="medication-info-wrap">
+                                        <div class="medication-info-box medication-ingredient">
+                                            <table class="table-primary">
+                                                <tbody id="medTable">
+                                                    <tr>
+                                                        <th>Ingredient Name</th>
+                                                        <th>Value</th>
+                                                    </tr>
+
+                                                </tbody>
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Applicator</td>
+                                                        <td><strong> Padded Sponge Top</strong></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vehicle</td>
+                                                        <td><strong> <%- order_result.MED_TYPE %></strong></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                        <script>
+                                            const med = document.getElementById('med');
+                                            const string = med.textContent.replace(/\//g, "");
+                                            const extract_medicine_per = string.match(/\S+\s\d+(\.\d+)?%/g);
+                                            const tableBody = document.getElementById('medTable');
+
+                                            extract_medicine_per.forEach(entry => {
+                                                const [ingredientName, valueWithPercentage] = entry.split(/\s/);
+                                                const row = tableBody.insertRow();
+                                                const cellIngredientName = row.insertCell(0);
+                                                const cellValue = row.insertCell(1);
+                                                cellIngredientName.textContent = ingredientName;
+                                                cellValue.innerHTML = `<strong>${valueWithPercentage}</strong>`;
+                                                // console.log(ingredientName);
+                                                // console.log(valueWithPercentage);
+                                            });
+
+                                        </script>
+
+
+                                        <div class="medication-info-box medication-instructions">
+                                            <div class="instruction-items-wrap">
+                                                <div class="instruction-item">Size <strong><%- order_result.SIZE
+                                                            %></strong></div>
+                                                <div class="instruction-item">Vehicle <strong><%- order_result.MED_TYPE
+                                                            %></strong></div>
+                                            </div>
+                                            <div class="instruction-desc">
+                                                <h3>Instructions</h3>
+                                                <div class="desc-box">
+                                                    <p><%- order_result.INSTRUCTIONS %></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="patient-single-box patient-records-table order-view">
+                                    <div class="overflow-dropdown">
+                                        <div class="medication-title-wrap">
+                                            <div class="title-holder">
+                                                <h3 class="h2-title"><%- order_result.PATIENT_FIRSTNAME %> <%-
+                                                            order_result.PATIENT_LASTNAME %></h3>
+                                                <div class="title-info">
+                                                    <p class="info-item">
+
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-person-fill icon"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                                        </svg>
+
+                                                        Patient
+                                                        added on
+                                                        <%- result.ADDED_DATE %> <%- result.ADDED_TIME %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="medication-title-left-col">
+                                                <div class="">
+                                                    <div class="btns-holder list-view"><a
+                                                            class="btn btn-primary btn-small" href="/create">+ ADD
+                                                            PRESCRIPTION</a>
+                                                        <!-- <a class="btn btn-small" href="/"><span
+                                                                class="icon icon-edit icon-dark"></span>EDIT
+                                                            DETAILS</a> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="patient-informations-box">
+                                            <div class="info-col">
+                                                <div class="info-item">
+                                                    <div class="icon-holder">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-envelope icon"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="text-holder">
+                                                        <div class="title">Email Address</div>
+                                                        <p><a class=""
+                                                                href="mailto:<%- order_result.PATIENT_EMAIL %>"><%-
+                                                                    order_result.PATIENT_EMAIL %></a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="info-item">
+                                                    <div class="icon-holder">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-person-rolodex icon"
+                                                            viewBox="0 0 16 16">
+                                                            <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                                                            <path
+                                                                d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="text-holder">
+                                                        <div class="title">Contact Number</div>
+                                                        <p><a href="tel:<%- order_result.PHONE_NO %>"><%-
+                                                                    order_result.PHONE_NO %></a></p>
+                                                    </div>
+                                                </div>
+                                                <div class="info-item">
+                                                    <div class="icon-holder">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-cake icon"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="m7.994.013-.595.79a.747.747 0 0 0 .101 1.01V4H5a2 2 0 0 0-2 2v3H2a2 2 0 0 0-2 2v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a2 2 0 0 0-2-2h-1V6a2 2 0 0 0-2-2H8.5V1.806A.747.747 0 0 0 8.592.802l-.598-.79ZM4 6a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v.414a.911.911 0 0 1-.646-.268 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0A.911.911 0 0 1 4 6.414V6Zm0 1.414c.49 0 .98-.187 1.354-.56a.914.914 0 0 1 1.292 0c.748.747 1.96.747 2.708 0a.914.914 0 0 1 1.292 0c.374.373.864.56 1.354.56V9H4V7.414ZM1 11a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.793l-.354.354a.914.914 0 0 1-1.293 0 1.914 1.914 0 0 0-2.707 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0 1.914 1.914 0 0 0-2.708 0 .914.914 0 0 1-1.292 0L1 11.793V11Zm11.646 1.854a1.915 1.915 0 0 0 2.354.279V15H1v-1.867c.737.452 1.715.36 2.354-.28a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.708 0a.914.914 0 0 1 1.292 0c.748.748 1.96.748 2.707 0a.914.914 0 0 1 1.293 0Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="text-holder">
+                                                        <div class="title">Date of Birth</div>
+                                                        <p><%- order_result.DATE %>/<%- order_result.MONTH %>/<%-
+                                                                        order_result.YEAR %> </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="info-col">
+                                                <div class="info-item">
+                                                    <div class="icon-holder">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                                            fill="currentColor" class="bi bi-gender-ambiguous icon"
+                                                            viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd"
+                                                                d="M11.5 1a.5.5 0 0 1 0-1h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-3.45 3.45A4 4 0 0 1 8.5 10.97V13H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V14H6a.5.5 0 0 1 0-1h1.5v-2.03a4 4 0 1 1 3.471-6.648L14.293 1H11.5zm-.997 4.346a3 3 0 1 0-5.006 3.309 3 3 0 0 0 5.006-3.31z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="text-holder">
+                                                        <div class="title">Gender</div>
+                                                        <p><%- order_result.GENDER %></p>
+                                                    </div>
+                                                </div>
+                                                <div class="info-item">
+                                                    <div class="icon-holder">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-prescription2 icon"
+                                                            viewBox="0 0 16 16">
+                                                            <path d="M7 6h2v2h2v2H9v2H7v-2H5V8h2V6Z" />
+                                                            <path
+                                                                d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v10.5a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 14.5V4a1 1 0 0 1-1-1V1Zm2 3v10.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V4H4ZM3 3h10V1H3v2Z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="text-holder">
+                                                        <div class="title">Allergies</div>
+                                                        <p><%- result.ALLERGIES %></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-wrap white-box">
+
+                                    <form class="form-primary review-item" id="form_data">
+                                        <h3 class="h2-title">REORDER SCRIPT </h3>
+                                        <div class="white-box instructions-box">
+                                            <div class="instructions-holder">
+                                                <h3 class="h5-title ">Written by: <span class="not-bold"> <%-
+                                                            order_result.PRESCRIBER_NAME %> </span></h3>
+                                                <h3 class="h5-title">Instructions for Use:</h3>
+                                                <div class="input-holder"><textarea placeholder="Placeholder"
+                                                        name="instructions" maxlength="135"
+                                                        id="instruction">Use one to two times daily as directed by your physician</textarea><span
+                                                        class="textarea-counter"></span>
+                                                    <p> </p>
+                                                </div>
+                                            </div>
+                                            <div class="instructions-select-holder"><label>Refill Amount</label><select
+                                                    name="refills" id="refills">
+                                                    <option selected="" value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="PRN">PRN</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="confirm-btns-wrap block btn-primary">
+                                            <a class="btn btn-secondary" href="/">Cancel</a>
+                                            <!-- <button type="submit" class="btn btn-primary open-modal"> CONFIRM NEW
+                                                SCRIPT</button> -->
+                                            <a class="btn btn-primary open-modal" id="script_link"
+                                                data-id="<%- order_result.PATIENT_ID %>"
+                                                data-day="<%- order_result.DAY %>"
+                                                data-time="<%- order_result.TIME_STAMP %>" href="javascript:void(0)"
+                                                onclick="confirm_script(this)">
+                                                CONFIRM NEW SCRIPT
+                                            </a>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <script>
+                                function confirm_script(data) {
+                                    $('#script_link').html(`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat spin" viewBox="0 0 16 16">
+                                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                    </svg>`);
+
+                                    var patientId = $(data).data("id");
+                                    var day = $(data).data("day");
+                                    var time = $(data).data("time");
+
+                                    var requestData = {
+                                        refills: $('#refills').val(),
+                                        instruction: $('#instruction').val()
+                                    };
+
+                                    var url = `/edit_new_script/${patientId}?day=${day}&time=${time}`;
+
+                                    fetch(url, {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify(requestData)
+                                    })
+                                        .then(function (response) {
+                                            if (response.ok) {
+                                                return response.json();
+                                            } else {
+                                                throw new Error("Network response was not ok");
+                                            }
+                                        })
+                                        .then(function (data) {
+                                            if (data.success) {
+                                                $('#script_link').html(data.success);
+                                                // console.log(data.updatedRecord.time);
+                                                const dateTime = data.updatedRecord.time;
+
+                                                const [utcdate, utctime] = dateTime.split(' ');
+                                                // console.log(utcdate, utctime);
+                                                window.location.href = `http://localhost:8000/order/${data.updatedRecord.PATIENT_ID}?day=${utcdate}&time=${utctime}`;
+                                            } else {
+                                                console.error("Error: Request was not successful");
+                                            }
+                                        })
+                                        .catch(function (error) {
+                                            console.error("Error:", error);
+                                        });
+                                }
+                            </script>
+
+
+                            <% } else { %>
+                                <div class="main-content order-view">
+                                    <h2
+                                        style="color: rgb(202, 48, 48); background-color: rgb(201 38 38 / 24%); padding: 10px; border-radius: 10px;">
+                                        No Orders </h2>
+                                </div>
+
+                                <% } %>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

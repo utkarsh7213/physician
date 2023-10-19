@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css" />
+</head>
+
+<body>
+ <%- include('./components/header', {detail : detail}) %>
+
+  <div class="page-container create-prescription-content-wrap">
+    <div class="container">
+      <div class="main-content" id="account-settings">
+        <div style="position: relative">
+          <div class="white-box intro-box">
+            <h1>Profile</h1>
+          </div>
+          <div class="cart-medication-box-wrap">
+
+            <form class="form-primary" action="/update_profile" method="post">
+              <div class="white-box medication-box">
+                <h3 class="h2-title">Personal Information</h3>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">First Name</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="text" class="grey-read-only" name="first_name" maxlength="25" value="<%= data.FIRST_NAME %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">Last Name</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="text" class="grey-read-only" name="last_name" maxlength="100" value="<%= data.LAST_NAME %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">Email</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="email" name="email" maxlength="100" value="<%= data.EMAIL %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">Phone Number</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="text" name="contact" maxlength="20" value="<%= data.CONTACT %>" readonly/>
+                    </div>
+                    <span></span>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">Practice Name</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="text" name="practice_name" maxlength="100" value="<%= data.PRACTICE_NAME %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">NPI</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input class="grey-read-only" type="text" name="npi" maxlength="10" value="<%= data.NPI %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">License State</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input class="grey-read-only" type="text" name="license_state" value="<%= data.LICENSE_STATE %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">License Number</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input class="grey-read-only" type="text" name="license_number" maxlength="100" value="<%= data.LICENSE_NUMBER %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <span>If you need to update your Name, NPI, License State, or
+                  License Number, please email NoblesVille.</span>
+              </div>
+              <div class="white-box medication-box">
+                <h3 class="h2-title">Address</h3>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">Address Line 1</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="text" maxlength="100" name="address_1" value="<%= data.ADDRESS1 %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">Address Line 2</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="text" maxlength="100" name="address_2" value="<%= data.ADDRESS2 %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">City</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="text" name="city" maxlength="50" value="<%= data.PRACTICE_CITY %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">State</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <select name="state">
+                        <option value="<%= data.PRACTICE_STATE %>"></option>
+                        <option>AL</option>
+                        <option>AK</option>
+                        <option>AS</option>
+                        <option>AZ</option>
+                        <option>AR</option>
+                        <option>CA</option>
+                        <option>CO</option>
+                        <option>CT</option>
+                        <option>DE</option>
+                        <option>DC</option>
+                        <option>FM</option>
+                        <option>FL</option>
+                        <option>GA</option>
+                        <option>GU</option>
+                        <option>HI</option>
+                        <option>ID</option>
+                        <option>IL</option>
+                        <option>IN</option>
+                        <option>IA</option>
+                        <option>KS</option>
+                        <option>KY</option>
+                        <option>LA</option>
+                        <option>ME</option>
+                        <option>MH</option>
+                        <option>MD</option>
+                        <option>MA</option>
+                        <option>MI</option>
+                        <option>MN</option>
+                        <option>MS</option>
+                        <option>MO</option>
+                        <option>MT</option>
+                        <option>NE</option>
+                        <option>NV</option>
+                        <option>NH</option>
+                        <option>NJ</option>
+                        <option>NM</option>
+                        <option>NY</option>
+                        <option>NC</option>
+                        <option>ND</option>
+                        <option>MP</option>
+                        <option>OH</option>
+                        <option>OK</option>
+                        <option>OR</option>
+                        <option>PW</option>
+                        <option>PA</option>
+                        <option>PR</option>
+                        <option>RI</option>
+                        <option>SC</option>
+                        <option>SD</option>
+                        <option>TN</option>
+                        <option>TX</option>
+                        <option>UT</option>
+                        <option>VT</option>
+                        <option>VI</option>
+                        <option>VA</option>
+                        <option>WA</option>
+                        <option>WV</option>
+                        <option>WI</option>
+                        <option>WY</option>
+                        <option>AE</option>
+                        <option>AA</option>
+                        <option>AP</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-box form-box">
+                  <div class="patient-info">
+                    <div class="patient-info-item">Zip Code</div>
+                  </div>
+                  <div class="input-holder">
+                    <div class="btn-item">
+                      <input type="text" name="zip" maxlength="15" value="<%= data.ZIP_CODE %>" readonly/>
+                    </div>
+                  </div>
+                </div>
+                <div class="btn-holder-center">
+                  <a class="btn btn-primary" href="/">Return to Dashboard</a>
+
+                  <!-- <button type="submit"
+                    class="btn btn-primary">
+                    Save Changes
+                  </button> -->
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

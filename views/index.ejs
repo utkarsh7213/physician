@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+  <%- include('./components/header', {detail : detail}) %>
+
+    <div class="my-[10rem]">
+
+      <div class="main-content-wrap page-container">
+        <div class="container">
+
+          <%- include('./components/navbar') %>
+
+            <div class="main-content">
+              <div class="white-box intro-box">
+                <h1>Patients</h1>
+                <div class="search-form-wrap">
+
+                  <form class="search-form" id="searchForm" method="post">
+                    <input type="text" placeholder="Search by First or Last Name" id="search" name="search"
+                      autocomplete="off" oninput="search_val_check()" />
+                    <button style="display: flex; align-items: center; justify-content: center; " type="submit"
+                      id="submit_btn"> <img src="/images/svg/search.svg" alt="" width="30px"> </button>
+                  </form>
+
+                </div>
+              </div>
+
+              <script>
+                $(document).ready(function () {
+                  $('#searchForm').on('submit', function (event) {
+                    event.preventDefault();
+
+                    var search = $('#search').val();
+
+                    $.ajax({
+                      url: '/search_patient',
+                      method: 'POST',
+                      data: { search: search },
+                      success: function (response) {
+
+                        $('#data-table #tbody').empty();
+
+                        response.forEach(function (data) {
+                          var row = $('<tr>');
+                          row.append($('<td class="table-name">').text(data.ROW1));
+                          row.append($('<td class="table-name">').text(data.ROW2));
+                          row.append($('<td class="dob" colspan="2">').text(data.DATE + '/' + data.MON + '/' + data.YR));
+                          row.append('<td class="empty">' + `${data.PHONENO}` + '</td>');
+                          row.append('<td class="empty">' + `  
+    <div class="btn-item">
+      <a class="btn btn-small-view" href="/patient/id/${data.ID}"><span
+          class="text">view</span><span
+          class="icon icon-arrow-right icon-dark"></span></a>
+    </div>
+   ` + '</td>');
+                          $('#data-table #tbody').append(row);
+                        });
+                      },
+                      error: function (error) {
+                        console.log(error);
+                      }
+                    });
+                  });
+                });
+              </script>
+
+              <script>
+                function search_val_check() {
+                  let search_input = document.getElementById('search');
+                  let table_body = document.getElementById('tbody');
+                  let table_body_data = document.getElementById('tbodydata');
+                  let patient_table = document.getElementById('patient_table_body');
+
+                  if (search_input.value == '') {
+                    table_body.innerText = '';
+                    table_body_data.style.visibility = 'visible';
+                  }
+
+                  document.getElementById('submit_btn').addEventListener('click', () => {
+                    if (search_input.value == '') {
+                      return;
+                    }
+                    patient_table.innerHTML = '';
+                    table_body_data.style.visibility = 'hidden';
+                  });
+                }
+              </script>
+
+              <div class="patient-records-section">
+                <div style="position: relative">
+                  <div class="patient-records-header">
+                    <div></div>
+                    <div class="btns-holder">
+                      <div class="btn-item">
+                        <a class="btn btn-primary btn-with-icon" data-cy="create-new-patient-button"
+                          href="/create-patient">Create New Patient</a>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                  <div class="overflow-dropdown">
+                    <div class="patient-table-outer">
+
+
+                      <div class="patient-table-outer">
+                        <div class="patient-records-table-wrap">
+
+                          <table class="patient-records-table table-v5" id="data-table">
+                            <thead>
+                              <tr>
+                                <th class="name">First Name</th>
+                                <th class="name">Last Name</th>
+                                <th class="dob" colspan="2">Date of Birth</th>
+                                <th class="empty">Contact</th>
+                                <th class="table-name">View</th>
+                              </tr>
+                            </thead>
+                            <tbody id="patient_table_body"> </tbody>
+                            <tbody id="tbody"> </tbody>
+                            <tbody id="tbodydata"> </tbody>
+                          </table>
+                          <div class="list-control">
+                            <button class="btn btn-small-view btn-primary" id="back_btn">
+                              </span>back
+                            </button>
+                            <button class="btn btn-small-view btn-primar" id="next_btn">
+                              Next</span>
+                            </button>
+                          </div>
+
+                          <script>
+                            $(document).ready(function () {
+                              var offset = 0;
+                              var limit = 5;
+                              var dataCache = {};
+
+                              function fetchData() {
+                                $.ajax({
+                                  url: '/next',
+                                  type: 'GET',
+                                  data: { offset: offset, limit: limit },
+                                  success: function (data) {
+                                    $('#tbodydata').empty();
+                                    $.each(data, function (index, row) {
+                                      var row_data = $('<tr>');
+                                      row_data.append($('<td class="table-name">').text(row.FIRST_NAME));
+                                      row_data.append($('<td class="table-name">').text(row.LAST_NAME));
+                                      row_data.append($('<td class="dob" colspan="2">').text(row.DAY + '/' + row.MONTH + '/' + row.YEAR));
+                                      row_data.append('<td class="table-name">' + `${row.PHONENO}` + '</td>');
+                                      row_data.append('<td class="empty">' + `
+    <div class="btn-item">
+      <a class="btn btn-small-view" href="/patient/id/${row.ID}"><span
+          class="text">view</span></a>
+    </div>
+  ` + '</td>');
+
+                                      $('#data-table #tbodydata').append(row_data);
+                                    });
+                                    dataCache[offset] = data;
+
+                                    if (data.length < limit) {
+                                      $('#next_btn').prop('disabled', true);
+                                    }
+                                  }
+                                });
+                              }
+
+                              fetchData();
+
+                              $('#next_btn').on('click', function () {
+                                offset += limit;
+                                fetchData();
+                              });
+
+                              $('#back_btn').on('click', function () {
+                                if (offset >= limit) {
+                                  $('#next_btn').prop('disabled', false);
+                                  offset -= limit;
+                                  if (dataCache[offset]) {
+                                    $('#tbodydata').empty();
+                                    $.each(dataCache[offset], function (index, row) {
+                                      var row_data = $('<tr>');
+                                      row_data.append($('<td class="table-name">').text(row.FIRST_NAME));
+                                      row_data.append($('<td class="table-name">').text(row.LAST_NAME));
+                                      row_data.append($('<td class="dob" colspan="2">').text(row.DAY + '/' + row.MONTH + '/' + row.YEAR));
+                                      row_data.append('<td class="empty">' + `${row.PHONENO}` + '</td>');
+                                      row_data.append('<td class="empty">' + ` 
+    <div class="btn-item">
+      <a class="btn btn-small-view" href="/patient/id/${row.ID}"><span class="text">view</span></a>
+    </div>
+  ` + '</td>');
+
+                                      $('#data-table #tbodydata').append(row_data);
+                                    });
+                                  } else {
+                                    offset += limit;
+                                  }
+                                }
+                              });
+                            });
+                          </script>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+
+</html>

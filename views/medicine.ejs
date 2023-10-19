@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css" />
+</head>
+
+<body>
+  <%- include('./components/header', {detail : detail}) %>
+
+    <div class="page-container create-prescription-content-wrap">
+      <div class="container">
+        <div class="back-link-holder">
+          <a href="/create" style="display: flex; gap: 10px;">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+              <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+            </svg>
+            
+            Return to Previous Page</a>
+        </div>
+        <div class="prescription-tabs-wrap">
+          <div id="select-ingredients-tab" class="tab-content longer-changes">
+
+            <div style="position: relative">
+              <div class="tab-title-holder">
+                <div class="icon-holder"
+                  style="position: relative; display: flex; justify-content: center; align-items: center;">
+                  <img src="/images/svg/people.svg" style="width: 20px;" alt="">
+                </div>
+                <h2 class="h1-title">Select the Prescription</h2>
+                <p>Select the prescription from the <%- table %></p>
+                <!-- <p>Select the prescription from the options below</p> -->
+              </div>
+              <div class="select-ingredients-wrap">
+                <ul class="tab-links"></ul>
+              </div>
+              <% if(category_res) { %>
+                <% for(let i=0; i < category_res.length; i++) { %>
+                  <div class="select-ingredients-wrap">
+                    <div class="white-box medication-box medication-box-ingredients length-change"
+                      data-cost="<%- category_res[i].COST %>">
+                      <div class="medication-title-wrap">
+                        <div class="title-holder">
+                          <h3 class="h5-title medicine med_title">
+                            <%- category_res[i].MEDICINE %>
+                          </h3>
+                          <div class="description-size"></div>
+                          <div class="description-spacer"></div>
+                        </div>
+                        <div class="price-holder">
+                          <p class="price-title">Price</p>
+                          <p class="h2-title cost" data-price="<%- category_res[i].COST %>">
+                            <%- category_res[i].COST %>
+                          </p>
+                        </div>
+                      </div>
+
+                      <form
+                        action='/submit?hrefcat=<%- category_res[i].TYPE %>&hreftab=<%- table %>&hrefid=<%- category_res[i].ID %>'
+                        class="details-wrap" method="post">
+                        <div class="medication-info-selection length-change" id="wrap_details">
+
+                          <div class="selection-item vehicle-item">
+                            <label>Formula ID</label><input class="" type="text" name="Vehicle" readonly=""
+                              value='<%- category_res[i].ID %>' />
+                          </div>
+
+                          <div class="selection-item vehicle-item">
+                            <label>Vehicle</label><input class="" type="text" name="Vehicle" readonly=""
+                              value='<%- category_res[i].TYPE %>' />
+                          </div>
+
+                          <div class="selection-item size-item">
+                            <label>Size</label><select name="size" class="size" onclick="price_validation(this)">
+                              <option value="<%- category_res[i].SIZE %>" class="selected_size opt">
+                                <%- category_res[i].SIZE %>
+                              </option>
+
+                            </select>
+                          </div>
+                        </div>
+                        <div class="btns-holder">
+                          <div class="btn-item">
+                            <div class="no-selected-pack">
+                              <button type="submit" class="btn-select-prescription btn btn-small btn-primary"
+                                data-cy="formula-select-button">
+                                SELECT
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+
+                    </div>
+                  </div>
+                  <% } %>
+                    <% } %>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script>
+      function price_validation(size_elem) {
+        const medicationBox = size_elem.closest('.medication-box');
+        const size = medicationBox.querySelector('.size');
+        const cost = medicationBox.querySelector('.cost');
+        const selectedOption = size.value;
+
+        if (size.getElementsByTagName('option').length < 2) {
+          let size_of_medicine = selectedOption.replace(/\D/g, "");
+          let size_type = selectedOption.replace(/[0-9]/g, '');
+          let size_int = parseInt(size_of_medicine, 10);
+
+          for (let i = 0; i < 2; i++) { // Assuming you have 3 options
+            let opt = document.createElement('option');
+            opt.className = "opt";
+
+            size_int += parseInt(size_of_medicine, 10);
+            opt.value = size_int + size_type;
+            opt.textContent = size_int + size_type;
+            size.appendChild(opt);
+          }
+
+          size.onchange = function () {
+            const pos = size.selectedIndex;
+
+            // Set the data-price attribute of the cost element based on pos
+            if (pos === 0) {
+              cost.setAttribute('data-price', '$35');
+            } else if (pos === 1) {
+              cost.setAttribute('data-price', '$70');
+            } else if (pos === 2) {
+              cost.setAttribute('data-price', '$90');
+            }
+
+            // You can also update the .cost element's text content if needed
+            cost.textContent = cost.getAttribute('data-price');
+          };
+        }
+      }
+
+
+    </script>
+
+
+    <script>
+      let medicine = document.querySelectorAll('.medicine');
+      medicine.forEach((e) => {
+        const string = e.textContent.replace(/\//g, "");
+        const extract_medicine_per = string.match(/\S+\s\d+(\.\d+)?%/g);
+        const div = document.createElement('div');
+        div.className = "selection-item small-item";
+
+        if (extract_medicine_per) {
+          extract_medicine_per.forEach((value) => {
+            const input_elem = document.createElement('input');
+            input_elem.type = "text"; input_elem.className = ""; input_elem.readOnly = true;
+            input_elem.value = value;
+            div.appendChild(input_elem);
+          });
+        }
+
+        e.appendChild(div);
+      });
+
+
+      // const medicineElements = document.querySelectorAll('.medicine');
+
+      // medicineElements.forEach((elem) => {
+      //   const updatedText = elem.textContent.replace(/\d+(\.\d+)?% ?/g, '');
+      //   elem.textContent = updatedText;
+      // });
+
+    </script>
+
+</body>
+
+</html>

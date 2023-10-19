@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css" />
+</head>
+
+<body>
+
+  <%- include('./components/header', {detail : detail}) %>
+
+  <div class="page-container create-prescription-content-wrap">
+    <div class="container">
+      <div class="main-content">
+        <div class="white-box intro-box">
+          <h1>Edit Your Preferences</h1>
+        </div>
+        <div class="cart-medication-box-wrap edit-preferences">
+          <form class="white-box medication-box form-primary" id="change-password">
+            <h3 class="h2-title">Edit Preferences</h3>
+            <div class="patient-box white-box form-box">
+              <div class="input-holder radio-button-holder">
+                <label class="pref-title">Default Page</label>
+                <div class="holder-custom-radio">
+                  <label class="custom-radio"><input name="default_page" type="radio"
+                      data-cy="default_page_patient_list" value="patient_list" />Patient List</label><label
+                    class="custom-radio"><input name="default_page" type="radio"
+                      data-cy="default_page_create_prescription" value="create_prescription" />Hide Patient List When
+                    Logging In</label>
+                </div>
+              </div>
+            </div>
+            <div class="patient-box white-box form-box">
+              <div class="input-holder checkbox-holder">
+                <label class="pref-title">Pending Prescription Email Notifications</label>
+                <div class="holder-custom-chekbox">
+                  <label class="custom-checkbox"><input name="all_prescription_request_email_notification"
+                      type="checkbox" value="1" checked="" /><span class="checkmark"></span>All new
+                    prescriptions</label><label class="custom-checkbox"><input
+                      name="daily_summary_prescription_request_email_notification" type="checkbox" value="1"
+                      checked="" /><span class="checkmark"></span>Daily summary</label>
+                </div>
+              </div>
+            </div>
+            <div class="patient-box white-box form-box">
+              <div class="input-holder radio-button-holder">
+                <label class="pref-title">Opt in for Physician Search</label><label class="sub-title">Your practice
+                  address will be searchable on the NoblesVille
+                  website. Change your address under Edit
+                  Profile.</label>
+                <div class="holder-custom-radio">
+                  <label class="custom-radio"><input name="opt_in_search" type="radio" data-cy="opt_in_search_yes"
+                      value="1" />Show</label><label class="custom-radio"><input name="opt_in_search" type="radio"
+                      data-cy="opt_in_search_no" value="0" />Hide</label>
+                </div>
+              </div>
+            </div>
+            <div class="patient-box white-box form-box">
+              <div class="input-holder checkbox-holder">
+                <label class="pref-title">Public email</label><label class="sub-title">This email will be publicly
+                  displayed on the website in the
+                  "Find a Physician" section. Patients can use this email to
+                  contact and setup appointments with your office.</label>
+                <div class="btn-holder">
+                  <div class="input-holder">
+                    <input name="public_email" data-cy="public_email" class="longer-input" type="email"
+                      maxlength="100" /><br />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="patient-box white-box form-box">
+              <div class="input-holder checkbox-holder">
+                <label class="pref-title">Public phone number (Optional)</label><label class="sub-title">Patients can
+                  use this phone number to contact and setup
+                  appointments with your office.</label>
+                <div class="btn-holder">
+                  <div class="input-holder">
+                    <input autocomplete="nonono" data-cy="public_phone" type="text" value=""
+                      inputmode="numeric" /><br />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="patient-box white-box form-box">
+              <div class="input-holder radio-button-holder">
+                <label class="pref-title">Allow patients to search for my Telemedicine link</label><label
+                  class="sub-title">Your telemedicine link will appear for patients in the
+                  state you are licensed in. To add more state licenses,
+                  contact .</label>
+                <div class="holder-custom-radio">
+                  <label class="custom-radio"><input name="allow_search" type="radio" data-cy="allow_search_yes"
+                      value="1" />Show</label><label class="custom-radio"><input name="allow_search" type="radio"
+                      data-cy="allow_search_no" value="0" />Hide</label>
+                </div>
+              </div>
+            </div>
+            <div class="patient-box white-box form-box">
+              <div class="input-holder checkbox-holder">
+                <label class="pref-title">Telemedicine Link</label>
+                <div class="btn-holder">
+                  <div class="input-holder">
+                    <input name="telemedicine_link" class="longer-input" type="text" maxlength="255" /><br />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="btn-holder-center">
+              <a class="btn btn-secondary" id="cancel-button" href="/">Cancel</a><button type="submit"
+                class="btn btn-primary">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

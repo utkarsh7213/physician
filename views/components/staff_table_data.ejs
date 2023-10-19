@@ -1,0 +1,24 @@
+<% for(var i=0; i < data.length; i++) { %>
+    <tr>
+        <th class="name">
+            <%- data[i].FIRST_NAME %>
+        </th>
+        <th class="name">
+            <%- data[i].LAST_NAME %>
+        </th>
+        <th class="empty">
+            <%- data[i].EMAIL %>
+        </th>
+        <!-- <th class="empty"></th> -->
+     
+        <th>
+            <div class="btn-item">
+                <a class="btn btn-small-view" href="/staff/id/<%- data[i].ID %>"><span class="text">view</span></a>
+            </div>
+        </th>
+
+    </tr>
+
+
+    <% } %>
+

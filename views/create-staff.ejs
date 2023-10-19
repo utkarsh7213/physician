@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css" />
+</head>
+
+<body>
+  <%- include('./components/header', {detail : detail}) %>
+
+  <div class="page-container create-prescription-content-wrap">
+    <div class="container">
+      <div class="create-profile-box">
+
+        <form class="form-primary" autocomplete="off" action="/upload_staff" method="post">
+          <div class="create-profile-inner">
+            <div class="title-holder">
+              <div class="icon-holder" style="display: flex; justify-content: center; align-items: center;">
+                <img src="/images/svg/doctor-svgrepo-com.svg" style="width: 20px;" alt="">
+              </div>
+              <h1>Add a New Staff Member</h1>
+              <p>
+                Fill out the form below to create a new staff member profile
+              </p>
+            </div>
+            <div class="create-profile-form-section align-left">
+              <div class="section-title">
+                <h2>Basic Details</h2>
+              </div>
+              <div class="two-cols-wrap">
+                <div class="inputs-holder">
+                  <div class="input-holder">
+                    <label for="first-name">First Name</label>
+
+                    <input type="text" name="first_name" id="first-name"
+                      placeholder="Enter your staff first name" maxlength="25" required/><br /><br />
+                  </div>
+
+                  <div class="input-holder">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" name="last_name" id="last-name" placeholder="Enter your staff last name"
+                      maxlength="50" required/><br /><br />
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="create-profile-form-section">
+              <div class="section-title">
+                <h2>Contact Information</h2>
+              </div>
+              <div class="two-cols-wrap">
+                <div class="inputs-holder">
+                  <div class="input-holder">
+
+                    <label for="email-address">Email Address</label>
+                    <input autocomplete="false" class="show-email" type="email" name="email" id="email-address"
+                      placeholder="Enter your staff contact email" maxlength="100" required/>
+
+                    <br> <br> <br> <br>
+
+                    <label for="password">Password</label>
+                    <input autocomplete="false" type="password" name="password" id="password"
+                      placeholder="Enter your password" maxlength="30" required/>
+                  </div>
+
+                </div>
+                <div class="info-holder">
+                  <div class="info-box">
+                    <h3>Important information</h3>
+                    <p>
+                      A staff with a valid email address will receive an email from NoblesVille that will provide them with instructions and a link to set a password to submit prescription requests through the platform.
+                    </p>
+                    <p>
+                      Please double check with your staff member to ensure they've received the email after you click 'Create Staff Profile'. If the email isn't found in the staff member's inbox, please have them check their Spam folder.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="confirm-btns-wrap">
+            <a class="back-link" href="/staff">cancel &amp; close</a><button type="submit"
+              class="btn btn-primary open-modal">
+              CREATE STAFF PROFILE
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

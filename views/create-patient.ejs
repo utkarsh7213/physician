@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <%- include('./components/header', {detail : detail}) %>
+
+    <div class="page-container create-prescription-content-wrap">
+      <div class="container">
+        <div class="create-profile-box">
+
+          <!-- <form  class="form-primary" autocomplete="off" id="formData"> -->
+            <form class="form-primary" autocomplete="off" action="/upload_patient" method="post" id="formData">
+            <div class="create-profile-inner">
+              <div class="title-holder">
+                <div class="icon-holder" style="display: flex; justify-content: center; align-items: center;">
+                  <img src="/images/svg/people.svg" style="width: 20px;" alt="">
+                </div>
+                <h1>Create a New Patient Profile</h1>
+                <p>Fill out the form below to create a new patient profile</p>
+              </div>
+              <div class="create-profile-form-section align-left">
+                <div class="section-title">
+                  <h2>Basic Details</h2>
+                </div>
+                <div class="two-cols-wrap">
+                  <div class="inputs-holder">
+                    <div class="input-holder">
+                      <label for="first-name">First Name</label>
+
+                      <input type="text" name="first_name" autocomplete="new-password" id="first-name"
+                        placeholder="Enter your patient’s first name" maxlength="25"
+                        required /><br /><br />
+
+                    </div>
+                    <div class="input-holder">
+                      <label for="last-name">Last Name</label>
+
+                      <input type="text" name="last_name" id="last-name" placeholder="Enter your patient’s last name"
+                        maxlength="50" required />
+
+                      <br /><br />
+                    </div>
+
+                    <div class="input-holder">
+                      <label for="city">City</label>
+
+                      <input type="text" name="city" placeholder="City" maxlength="50" required />
+
+                      <br /><br />
+                    </div>
+
+                    <div class="input-holder">
+                      <label for="zipcode">Zip Code</label>
+
+                      <input type="text" name="zip" placeholder="Zip Code" maxlength="50" required />
+
+                      <br /><br />
+                    </div>
+
+                    <div class="input-holder">
+                      <label for="state">State</label>
+
+                      <input type="text" name="state" placeholder="State" maxlength="50" required />
+
+                      <br /><br />
+                    </div>
+
+                    <div class="input-holder radio-buttons-holder">
+                      <label for="allergies-info">Gender</label>
+                      <div class="radio-buttons-two-cols">
+                        <div class="custom-radio-button darker">
+
+                          <input type="radio" name="gender" id="gender-male" value="M" />
+                          <label for="gender-male" data-cy="gender-male">Male</label>
+
+                        </div>
+                        <div class="custom-radio-button">
+                          <input type="radio" name="gender" id="gender-female" value="F" />
+                          <label for="gender-female" data-cy="gender-female">Female</label>
+                        </div>
+
+                        <div class="custom-radio-button">
+                          <input type="radio" name="gender" id="gender-nonbinary" value="u" />
+                          <label for="gender-nonbinary" data-cy="gender-non-binary">Non-Binary</label>
+                        </div>
+
+                        <br /><br />
+                      </div>
+                    </div>
+
+                    <div id="date1" class="date-field input-holder">
+                      <label for="first-name"> Date of Birth </label>
+                      <div class="date-border">
+
+                        <input id="month" name="month" type="number" maxlength="2" data-index="1" size="1"
+                          placeholder="MM" required />/
+                          <input id="day" name="day" type="number" data-index="2"
+                          maxlength="2" size="1" placeholder="DD" required />
+                        /
+                        <input id="year" name="year" type="text" maxlength="4" pattern="\d*" min="1910" max="2100"
+                          size="2" placeholder="YYYY" required />
+
+                      </div>
+                      <br /><span><br /><br /></span><br />
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="create-profile-form-section">
+                <div class="section-title">
+                  <h2>Contact Information</h2>
+                </div>
+                <div class="two-cols-wrap">
+                  <div class="inputs-holder">
+                    <div class="input-holder">
+
+                      <label for="email-address">Email Address</label>
+                      <input autocomplete="false" class="show-email" type="email" name="email" id="email-address"
+                        placeholder="Enter your patient’s contact email" maxlength="100"
+                        required />
+
+                      <!-- <div class="no-email-input">
+                      <label for="no-email" class="custom-checkbox">
+                        <input type="checkbox" name="noemail" id="no-email" autocomplete="new-password"
+                          value="nkda" /><span class="checkmark">     
+                          </span>This patient has no
+                        email</label>
+                    </div> -->
+
+                    </div>
+                    <div class="input-holder">
+                      <label for="phone-number">Phone Number (Cell/Mobile Preferred)</label>
+                      <input autocomplete="nonono" placeholder="Phone Number" data-cy="phone_number" type="text"
+                        name="phoneno" inputmode="numeric" />
+                      <br /><br />
+                      <label class="custom-checkbox">
+                        <input name="allow_texting" type="checkbox" value="1" checked="" />
+                        <span class="checkmark"></span>Patient consents to
+                        receive initial text notifying them of their initial
+                        prescription</label>
+                    </div>
+                  </div>
+                  <div class="info-holder">
+                    <div class="info-box">
+                      <h3>Important information</h3>
+                      <p>
+                        A patient with a valid email address will receive an
+                        email from NoblesVille that will provide them with
+                        instructions to redeem their prescription through the
+                        NoblesVille website. They will not receive a call
+                        from the pharmacy.
+                      </p>
+                      <p>
+                        Please double check email address to ensure patients
+                        receive their prescription. Please tell patient to check
+                        Spam folder if they have an issue locating their
+                        prescription email.
+                      </p>
+                      <p>
+                        A patient that has 'no email' will receive a call
+                        directly from the pharmacy. We encourage all physicians
+                        to provide a valid email address for their patients if
+                        available.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="create-profile-form-section">
+                <div class="section-title">
+                  <h2>Other Required Information</h2>
+                </div>
+                <div class="two-cols-wrap">
+                  <div class="inputs-holder">
+                    <div class="input-holder">
+                      <label for="allergies-info">Allergies</label><textarea class="show-allergies" id="allergies-info"
+                        name="allergies"></textarea>
+                      <div class="no-allergies-input">
+                        <label for="no-allergies" class="custom-checkbox">
+                          <input type="checkbox" name="nkda" id="no-allergies" value="nkda" /><span
+                            class="checkmark"></span>No Known Drug
+                          Allergies</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="confirm-btns-wrap">
+              <a class="back-link" href="/">cancel &amp; close</a>
+
+              <button type="submit" class="btn btn-primary open-modal" id="submit_btn">
+                CREATE PROFILE
+              </button>
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

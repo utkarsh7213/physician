@@ -1,0 +1,78 @@
+<header class="main-header">
+  <div class="container">
+    <div>
+      <a class="logo2" href="/"><img src="/images/nobleslogo.png" alt="NoblesVille" data-cy="site-logo"
+          class="full-logo h-[60px] w-[55px]" />
+        <img src="/images/nobleslogo.png" alt="NoblesVille" data-cy="mobile-site-logo" class="mobile-logo" /></a>
+    </div>
+
+    <ul style="position: relative; right: 80px; font-size: 14px;">
+      <li> Doctor : <%- detail.FIRST_NAME %> <%- detail.LAST_NAME %> </li>
+      <li style="margin-top: 10px;">NPI : <%- detail.NPI %></li>
+    </ul>
+
+    <div class="nav-holder">
+      <ul class="header-nav no-style">
+        <li>
+          <a class="btn home-btn " style="display: flex; align-items: center; gap: 4px;"
+            data-cy="prescriber-patient-list-button" href="/">
+            <img src="/images/svg/people.svg" style="width: 20px;" alt="">
+            Patient List
+          </a>
+        </li>
+
+        <li>
+          <a data-cy="new-prescription-button" class="new-btn btn-primary" href="/create"><span class="text"><span
+                class="hide-text-on-mobile">CREATE </span>NEW PRESCRIPTION</span>
+          </a>
+        </li>
+
+        <li
+          style="background-color: rgb(252, 253, 251); padding: 5px; border-radius: 30px; padding: 2px; padding-bottom: 6px;">
+          <a href="/logout" data-cy="prescriber-profile-menu-logout" class="btn">Log Out</a>
+        </li>
+
+        <li>
+          <div class="group ">
+            <button class="profile-btn dropdown-trigger-nav menu-btn"
+              style="display: flex; align-items: center; gap: 4px;">
+              <img src="/images/svg/settings.svg" style="width: 20px;" alt="">
+              Menu
+            </button>
+            <div class="hidden group-hover:block absolute w-56" style="margin-left: -50px; padding-top: 10px;">
+              <div class="hide-padding bg-white ">
+                <div class="dropdown-title text-2xl font-semibold my-2 " style="display: flex;">
+                  <img src="/images/settings.svg" style="width: 15px;" alt="">
+                </div>
+                <nav>
+                  <ul class="nav-menu no-style space-y-4">
+                    <li class=""
+                      style="background-color: rgb(252, 253, 251); padding: 5px; border-radius: 30px; padding: 2px; padding-bottom: 6px;">
+                      <a href="/edit-profile" data-cy="prescriber-profile-menu-edit-profile" class="">My
+                        Profile</a>
+                    </li>
+                    <li class=""
+                      style="background-color: rgb(252, 253, 251); padding: 5px; border-radius: 30px; padding: 2px; padding-bottom: 6px;">
+                      <a href="/change_password" data-cy="prescriber-profile-menu-change-password" class="">Change
+                        Password</a>
+                    </li>
+
+                    <li class=""
+                      style="background-color: rgb(252, 253, 251); padding: 5px; border-radius: 30px; padding: 2px; padding-bottom: 6px;">
+                      <a href="/edit-preferences" data-cy="prescriber-profile-menu-edit-preferences" class="">Edit
+                        Preferences</a>
+                    </li>
+                    <!-- <li class="" style="background-color: rgb(252, 253, 251); padding: 5px; border-radius: 30px; padding: 2px; padding-bottom: 6px;">
+                      <a href="/logout" data-cy="prescriber-profile-menu-logout" class="">Log Out</a>
+                    </li> -->
+                  </ul>
+
+                </nav>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

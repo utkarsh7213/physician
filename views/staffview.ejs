@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff View</title>
+  <link rel="stylesheet" href="/styles/output.css">
+</head>
+
+<body>
+  <%- include('./components/header', {detail : detail}) %>
+
+    <div class="main-content-wrap page-container my-[10rem]">
+      <div class="container">
+
+        <%- include('./components/navbar') %>
+
+          <% if (staff_record) { %>
+            <div class="main-content prescriber-single list-view">
+              <div class="prescription-tabs-wrap">
+                <div class="patient-single-box">
+                  <div class="medication-title-wrap">
+                    <div class="title-holder">
+                      <h1 class="h2-title"> <%- staff_record.FIRST_NAME %> </h1>
+                      <div class="title-info">
+                        <p class="info-item">
+                          <span class="icon icon-calendar"></span>
+                          Staff member added on <%- staff_record.DATE %>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="medication-title-left-col">
+                      <div class="btns-holder">
+                        <a class="btn btn-small" data-cy="deactivate-staff-button" href="/"><span
+                            class="icon icon-close icon-dark"></span>Deactivate</a><a class="btn btn-small"
+                          data-cy="edit-staff-button" href="/staff/2564/edit"><span
+                            class="icon icon-edit icon-dark"></span>Edit Staff
+                          Member</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="white-box patient-informations-box">
+                  <div class="info-col">
+                    <div class="info-item">
+                      <div class="icon-holder">
+                        <span class="icon icon-mail"></span>
+                      </div>
+                      <div class="text-holder">
+                        <div class="title">Email Address</div>
+                        <p>
+                          <a href="mailto:<%- staff_record.EMAIL %>"><%- staff_record.EMAIL %></a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="info-col">
+                    <div class="info-item">
+                      <div class="icon-holder">
+                        <span class="icon icon-check"></span>
+                      </div>
+                      <div class="text-holder">
+                        <div class="title">Active</div>
+                        <p>Yes</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <% } else { %>
+              <div class="main-content prescriber-single list-view">
+                <div class="container" style="background-color: #fff5f5;">
+                  <div class="medication-title-wrap">
+                    <div class="title-holder">
+                      <h3 class="h2-title" style="color: rgb(226, 86, 86); margin-top: 15px; margin-left: 10px;"> No
+                        Results found </h3>
+                      <div class="title-info">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+
+      </div>
+    </div>
+</body>
+
+</html>

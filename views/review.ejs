@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Development</title>
+  <link rel="stylesheet" href="/styles/output.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .spin {
+      animation: spin 2s linear infinite;
+    }
+
+    #total_select {
+      display: flex;
+      flex-direction: column;
+      white-space: pre-line;
+      font-family: 'Arial', sans-serif;
+      font-size: 20px;
+      color: #333;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      line-height: 1.4;
+      /* Add line spacing between text lines */
+      width: 100%;
+    }
+
+    #total_select p {
+      margin: 10px 0;
+      font-weight: bold;
+      color: #29292a;
+      border-bottom: 1px solid #ccc;
+      /* Add a border below each paragraph */
+    }
+
+    /* Responsive design */
+    @media screen and (max-width: 768px) {
+      #total_select {
+        font-size: 14px;
+        padding: 15px;
+        margin: 10px;
+
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('./components/header', {detail : detail}) %>
+
+    <div class="page-container create-prescription-content-wrap">
+      <div class="container">
+        <div class="back-link-holder">
+          <a style="display: flex; gap: 10px;" href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+              <path fill-rule="evenodd"
+                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+            </svg>
+            Return to Dashboard</a>
+        </div>
+        <div id="select-patient-tab" class="tab-content">
+          <div class="tab-title-holder">
+
+
+            <div class="icon-holder"
+              style="position: relative; display: flex; justify-content: center; align-items: center;">
+              <img src="/images/svg/people.svg" style="width: 20px;" alt="">
+            </div>
+
+            <h2 class="h1-title">Review and Confirm</h2>
+            <p>
+              Please confirm and review the details below before creating
+              your prescription
+            </p>
+          </div>
+          <div class="review-wrap-v2">
+            <div class="review-item">
+              <h3 class="h2-title">Prescription</h3>
+
+              <% if(review_result) { %>
+                <%# for(let i=0; i < review_result.length; i++) { %>
+
+                  <div class="white-box medication-box medication-box-ingredients">
+                    <div class="medication-title-wrap">
+                      <div class="title-holder">
+
+                        <h2 id="medicine2"> <%- review_result[0].MEDICINE %> </h2>
+                        <h2 id="medicine" style="display: none;"> <%- review_result[0].MEDICINE %> </h2>
+
+                        <div class="title-info">
+                          <h3 class="h5-title">Eflornithine HCl Monohydrate</h3>
+                          <p class=""></p>
+                        </div>
+                      </div>
+                      <div class="price-holder">
+                        <p class="price-title">Price</p>
+                        <div class="h2-title" id="cost">
+                          <%- review_result[0].COST %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="details-wrap">
+                      <div class="medication-info-selection length-change" id="wrap_details">
+
+                        <div class="selection-item small-item final">
+                          <label>Formula ID</label><input class="" type="text" name="formula" readonly="" id="formula"
+                            value="<%- review_result[0].ID %>" />
+                        </div>
+
+                        <div class="selection-item small-item final">
+                          <label>Vehicle</label>
+                          <input class="" type="text" name="Vehicle" readonly="" id="vehicle"
+                            value="<%- review_result[0].TYPE %>" />
+                        </div>
+
+                        <div class="selection-item small-item final">
+                          <label for="size">Size</label>
+                          <select name="size" id="size">
+                            <option value="<%- review_result[0].SIZE %>" class="selected_size" selected> <%-
+                                review_result[0].SIZE %>
+                            </option>
+                          </select>
+                        </div>
+
+                      </div>
+                      <div class="btns-holder">
+                        <div class="btn-item"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <%# } %>
+                    <% } %>
+
+                      <script type="text/javascript" src="/scripts/medicine_percent.js"></script>
+
+            </div>
+            <div class="modal-top" id="patients">
+              <div id="select-patient-tab" class="tab-content current">
+                <div class="tab-title-holder">
+                  <div class="icon-holder">
+                    <div class="icon-holder"
+                      style="position: relative; display: flex; justify-content: center; align-items: center;">
+                      <img src="/images/svg/people.svg" style="width: 20px;" alt="">
+                    </div>
+                  </div>
+                  <h1>Select a Patient</h1>
+                  <p>
+                    Which patient is this prescription for? Select or use
+                    the search field for one below.
+                  </p>
+                </div>
+                <div class="button-search-wrap">
+                  <div class="btn-item">
+                    <button class="btn btn-primary btn-with-icon" data-cy="create-new-patient-button"
+                      onclick="window.open('/create-patient', '_self')">
+                      Create New Patient
+                    </button>
+                  </div>
+
+
+                  <div class="search-form-wrap">
+
+                    <form class="search-form" id="searchForm" method="post">
+                      <input type="text" placeholder="Search" id="search" name="search" oninput="search_val_check()" />
+                      <button type="submit" id="submit_btn">
+                        <span class="icon icon-search"></span>
+                      </button>
+                    </form>
+
+
+                    <script>
+                      function search_val_check() {
+                        let search_input = document.getElementById('search'); let table_body = document.getElementById('tbody');
+                        let table_body_data = document.getElementById('tbodydata'); let patient_table = document.getElementById('patient_table_body');
+                        if (search_input.value == '') { table_body.innerText = ''; table_body_data.style.visibility = 'visible'; }
+                        document.getElementById('submit_btn').addEventListener('click', () => {
+                          if (search_input.value == '') { return; }
+                          patient_table.innerHTML = ''; table_body_data.style.visibility = 'hidden';
+                        });
+                      }
+                    </script>
+
+                  </div>
+                </div>
+
+                <div class="search-info">
+                  <!-- <p class="text-holder">
+                    You currently have 1 patient on record
+                  </p> -->
+                </div>
+
+                <div class="patient-table-outer">
+                  <table class="patient-records-table table-v5" id="table-data">
+                    <thead>
+                      <tr>
+                        <th class="name">First Name</th>
+                        <th class="name">Last Name</th>
+                        <th class="dob" colspan="2">Date of Birth</th>
+                        <th class="empty">Contact</th>
+                        <th class="empty"> Select </th>
+                      </tr>
+                    </thead>
+                    <tbody id="patient_table_body"> </tbody>
+                    <tbody id="tbody"> </tbody>
+                    <tbody id="tbodydata"> </tbody>
+                  </table>
+
+
+                  <!-- <button id="submit_data" class="btn btn-small-view btn-primary" onclick="submit_selected()"> Submit
+                  </button> -->
+
+                  <div class="list-control">
+                    <button class="btn btn-small-view btn-primary" id="back_btn">
+                      back
+                    </button>
+                    <button class="btn btn-small-view btn-primary" id="next_btn">
+                      Next
+                    </button>
+                  </div>
+                  <div class="view-count">
+                    <p>Currently viewing page 1 of 1</p>
+                  </div>
+                </div>
+
+                <div id="total_selected_patients"> </div>
+
+                <div class="padding-submit">
+                  <div class="padding-review">
+                    <div class="review-item">
+                      <h3 class="h2-title">Instructions</h3>
+                      <div class="white-box instructions-box-v2">
+                        <div class="instructions-holder">
+                          <h3 class="h5-title">Instructions for Use:</h3>
+                          <div>
+                            <div class=""><textarea placeholder="Type here" id="instruction" name="instructions"
+                                maxlength="135"></textarea></div>
+                          </div>
+                        </div>
+                        <div class="instructions-select-holder"><label>Refill Amount:</label>
+
+                          <select name="refills" id="options_value">
+                            <option selected="" value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="PRN">PRN</option>
+                          </select>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="confirm-btns-wrap-v2"><a class="back-link" href="/">CANCEL</a>
+                    <button onclick="submit_selected()" id="submit_data" class="btn btn-primary open-modal"> CONFIRM
+                      &amp; COMPLETE
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <script src="/scripts/check.js"> </script>
+    <script src="/scripts/product_price.js"></script>
+</body>
+
+</html>

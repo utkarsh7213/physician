@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+  <!-- component -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+    html,
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .break-inside {
+      -moz-column-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    body {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+  </style>
+
+  <body class="bg-white">
+    <div class="flex min-h-screen">
+
+      <div class="flex flex-row w-full">
+
+        <div class='hidden lg:flex flex-col justify-between bg-[#f8f9fa] lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
+          <div class="flex items-center justify-start space-x-3">
+
+            <a href="#" class="font-medium text-xl w-[100px] h-[100px]"> <img src="/images/nobleslogo.png" alt=""
+                class=""></a>
+          </div>
+          <div class='space-y-5'>
+            <h1 class="lg:text-3xl xl:text-5xl xl:leading-snug font-extrabold">The Future of Dermatology is Now!</h1>
+            <p class="text-lg">You do not have an account?</p>
+            <button class="inline-block flex-none px-4 py-3 border-2 rounded-lg font-medium  bg-[#2d4088] text-white"
+              onclick="window.open('/register', '_self')">Create
+              account here</button>
+          </div>
+          <p class="font-medium">© 2023 NoblesVille</p>
+        </div>
+
+        <div class="flex flex-1 flex-col items-center justify-center px-10 relative">
+          <div class="flex lg:hidden justify-between items-center w-full py-4">
+            <div class="flex items-center justify-start space-x-3">
+
+              <a href="#" class="font-medium text-lg w-[80px] h-[80px]"> <img src="/images/nobleslogo.png" alt=""
+                  class=""></a>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span>Not a member? </span>
+              <a href="/register" class="underline font-medium text-[#070eff]">
+                Register now
+              </a>
+            </div>
+          </div>
+
+          <!-- <form action="/auth_login" method="post" id="loginForm"> -->
+          <form method="post" id="loginForm">
+
+            <div class="flex flex-1 flex-col  justify-center space-y-5 max-w-md">
+              <div class="flex flex-col space-y-2 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">Sign in to account</h2>
+                <p class="text-md md:text-xl">Login to the Physician</p>
+              </div>
+
+              <div class="flex flex-col max-w-md space-y-5">
+
+                <input type="email" placeholder="E-mail" name="email"
+                  class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-[#2d4088] focus:outline-none rounded-lg font-medium placeholder:font-normal"
+                  required />
+
+                <input type="Password" placeholder="Password" name="password"
+                  class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-[#2d4088] focus:outline-none rounded-lg font-medium placeholder:font-normal"
+                  required />
+
+                <button
+                  class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium  bg-[#2d4088] text-white"
+                  id="login_btn">Login</button>
+                <a href="/forgot" style="color: #5252bb; text-decoration: underline;"> forgot password</a>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let email = document.getElementsByName('email')[0];
+      let password = document.getElementsByName('password')[0];
+      function verify_account(data) {
+        $.ajax({
+          url: "/auth_login",
+          type: "POST",
+          data: data,
+          success: function (response) {
+            email.style.border = 'none'; password.style.border = 'none';
+            if (response.wrong) {
+               email.style.boxShadow = '0 0 5px red'; password.style.boxShadow = '0 0 5px red';
+            }
+            else {
+              email.style.boxShadow = '0 0 5px green'; password.style.boxShadow = '0 0 5px green';
+              window.open('/', '_self');
+            }
+          },
+          error: function (error) {
+            console.error("Error :", error);
+          }
+        });
+      }
+
+      $(document).ready(function () {
+
+        $("#login_btn").click(function (event) {
+          event.preventDefault();
+
+
+          const data = {
+            email: email.value,
+            password: password.value
+          };
+
+          verify_account(data);
+        });
+      });
+    </script>
+
+
+  </body>
+</body>
+
+</html>
